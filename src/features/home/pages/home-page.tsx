@@ -1,10 +1,11 @@
 import { Button } from "~/components/ui/button";
 import { Route } from "~/features/simulation/components/route";
 import { AboutDialog } from "../components/about-dialog";
+import { JoinSimulationDialog } from "~/features/simulation/components/join-simulation-dialog";
 
 export function HomePage() {
   return (
-    <div className="min-h-dvh px-6 py-32">
+    <div className="min-h-dvh bg-zinc-100 px-6 py-32">
       <header className="mx-auto w-full max-w-2xl space-y-4 md:text-center">
         <h1 className="text-3xl font-bold">One Way Bridge</h1>
 
@@ -14,10 +15,12 @@ export function HomePage() {
         </p>
 
         <div className="space-x-4">
-          <Button>Unirse</Button>
+          <JoinSimulationDialog>
+            <Button>Unirse</Button>
+          </JoinSimulationDialog>
 
           <AboutDialog>
-            <Button variant="secondary">Conocer más</Button>
+            <Button variant="outline">Conocer más</Button>
           </AboutDialog>
         </div>
       </header>

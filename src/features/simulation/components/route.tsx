@@ -3,7 +3,7 @@ import { Street } from "./street";
 
 export function Route() {
   return (
-    <div className="grid flex-1 grid-cols-3 place-items-center">
+    <div className="grid grid-cols-3">
       <Street />
 
       <Bridge />
