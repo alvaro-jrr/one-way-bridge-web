@@ -1,11 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { socket } from "~/core/socket";
-import { SimulationProviderContext } from "./simulation-provider.context";
+import {
+  SimulationProviderContext,
+  SimulationState,
+} from "./simulation-provider.context";
 import { NewCar } from "../models/new-car";
 
 /** The socket simulation events. */
 const events = {
   joinSimulation: "join-simulation",
+  joinedSimulation: "joined-simulation",
 };
 
 /** The simulation state provider. */
@@ -14,6 +18,8 @@ export function SimulationProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const [state, setState] = useState<SimulationState>("idle");
+
   // Connection to the socket.
   useEffect(() => {
     socket.connect();
@@ -24,13 +30,29 @@ export function SimulationProvider({
     };
   }, []);
 
+  useEffect(() => {
+    /** Handles when the user joins the simulation. */
+    const onJoinedSimulation = () => {
+      setState("running");
+    };
+
+    // The events.
+    socket.on(events.joinedSimulation, onJoinedSimulation);
+
+    return () => {
+      socket.off(events.joinedSimulation);
+    };
+  }, []);
+
   /** Joins the simulation. */
   const onJoinSimulation = (newCar: NewCar) => {
-    socket.emit(events.joinSimulation, newCar);
+    setState("waiting");
+
+    socket.emit(events.joinSimulation, { car: newCar });
   };
 
   return (
-    <SimulationProviderContext.Provider value={{ onJoinSimulation }}>
+    <SimulationProviderContext.Provider value={{ onJoinSimulation, state }}>
       {children}
     </SimulationProviderContext.Provider>
   );

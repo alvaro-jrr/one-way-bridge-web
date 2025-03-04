@@ -26,7 +26,10 @@ export function JoinSimulationDialog({
   // The car parameters.
   const [waitingTime, setWaitingTime] = useState(1);
   const [bridgeTime, setBridgeTime] = useState(1);
-  const [direction, setDirection] = useState<Direction>("left");
+  const [direction, setDirection] = useState<Direction>("left-to-right");
+
+  // The dialog open state.
+  const [open, setOpen] = useState(false);
 
   // Handles the join simulation event.
   const onJoinSimulation = () => {
@@ -38,7 +41,7 @@ export function JoinSimulationDialog({
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
 
       <DialogContent>
@@ -57,6 +60,8 @@ export function JoinSimulationDialog({
             event.preventDefault();
 
             onJoinSimulation();
+
+            setOpen(false);
           }}
         >
           <div className="space-y-4">
@@ -106,18 +111,18 @@ export function JoinSimulationDialog({
               </div>
             </FormField>
 
-            <FormField id="direction" label="Dirección">
+            <FormField id="direction" label="Punto de Entrada">
               <RadioCard
                 value={direction}
                 options={[
                   {
                     label: "Izquierda",
-                    value: "left",
+                    value: "left-to-right",
                     icon: ArrowLeftIcon,
                   },
                   {
                     label: "Derecha",
-                    value: "right",
+                    value: "right-to-left",
                     icon: ArrowRightIcon,
                   },
                 ]}

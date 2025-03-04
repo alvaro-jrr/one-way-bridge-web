@@ -2,8 +2,12 @@ import { Button } from "~/components/ui/button";
 import { Route } from "~/features/simulation/components/route";
 import { AboutDialog } from "../components/about-dialog";
 import { JoinSimulationDialog } from "~/features/simulation/components/join-simulation-dialog";
+import { useSimulation } from "~/features/simulation/hooks/use-simulation";
 
 export function HomePage() {
+  // Get the simulation state.
+  const { state } = useSimulation();
+
   return (
     <div className="min-h-dvh bg-zinc-100 px-6 py-32">
       <header className="mx-auto w-full max-w-2xl space-y-4 md:text-center">
@@ -16,7 +20,7 @@ export function HomePage() {
 
         <div className="space-x-4">
           <JoinSimulationDialog>
-            <Button>Unirse</Button>
+            <Button disabled={state !== "idle"}>Unirme</Button>
           </JoinSimulationDialog>
 
           <AboutDialog>
