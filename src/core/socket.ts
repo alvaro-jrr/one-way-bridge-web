@@ -7,7 +7,7 @@ export const socket = io(url, {
 });
 
 socket.on("connect", () => {
-  console.log(`Connecto to socket on ${url}`);
+  console.log(`Connected to socket on ${url}`);
 });
 
 socket.on("disconnect", () => {
