@@ -21,7 +21,7 @@ export function JoinSimulationDialog({
   children: React.ReactNode;
 }) {
   // The simulation context.
-  const simulation = useSimulation();
+  const { onJoinSimulation } = useSimulation();
 
   // The car parameters.
   const [waitingTime, setWaitingTime] = useState(1);
@@ -30,15 +30,6 @@ export function JoinSimulationDialog({
 
   // The dialog open state.
   const [open, setOpen] = useState(false);
-
-  // Handles the join simulation event.
-  const onJoinSimulation = () => {
-    simulation.onJoinSimulation({
-      waitingTime: waitingTime,
-      bridgeTime: bridgeTime,
-      direction,
-    });
-  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -59,7 +50,11 @@ export function JoinSimulationDialog({
           onSubmit={(event) => {
             event.preventDefault();
 
-            onJoinSimulation();
+            onJoinSimulation({
+              waitingTime,
+              bridgeTime,
+              direction,
+            });
 
             setOpen(false);
           }}

@@ -1,5 +1,6 @@
 import {
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -14,9 +15,13 @@ export function AboutDialog({ children }: { children: React.ReactNode }) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>¿De qué se trata este proyecto?</DialogTitle>
+
+          <DialogDescription>
+            Una breve descripción sobre el proyecto y su propósito.
+          </DialogDescription>
         </DialogHeader>
 
-        <div className="text-muted-foreground space-y-4 text-sm">
+        <div className="text-foreground space-y-4 text-sm">
           <p>
             La idea del proyecto del sistema distribuido en el puente de una via
             es proporcionar una solución para que los vehículos que vienen de
