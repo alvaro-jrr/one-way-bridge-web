@@ -52,7 +52,7 @@ export function QueueStatus({
                 />
 
                 <span className="line-clamp-1 text-ellipsis">
-                  {isMyCar ? "Tú" : car.id}
+                  {isMyCar ? "Tú" : "Anónimo"}
                 </span>
               </span>
 
